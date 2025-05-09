@@ -5,7 +5,12 @@ import os
 import asyncio
 from keep_alive import keep_alive
 from datetime import datetime, timezone
+from dotenv import load_dotenv
 
+# .env dosyasını yükle
+load_dotenv()
+
+# Botun sürekli aktif olması için
 keep_alive()
 
 intents = discord.Intents.default()
@@ -14,7 +19,7 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-TOKEN = os.environ["TOKEN"]  # Replit'te Secrets kısmına "TOKEN" ekle
+TOKEN = os.getenv("TOKEN")  # .env dosyasındaki token'ı al
 SEC_ROLE_NAME = "Sec"
 
 # BOT HAZIR
@@ -129,10 +134,5 @@ async def on_message(message):
         await message.channel.send("as")
     await bot.process_commands(message)
 
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-TOKEN = os.getenv("TOKEN")
-
+# BOTU ÇALIŞTIR
 bot.run(TOKEN)
